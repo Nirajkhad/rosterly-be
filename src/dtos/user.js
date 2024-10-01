@@ -8,6 +8,16 @@ const createUser = ( body, password_hash) => {
     }
 }
 
+const createToken = (user) =>{
+    return  {
+        sub: user.id, 
+        iat: Math.floor(Date.now() / 1000), 
+        exp: Math.floor(Date.now() / 1000) + 2592000, 
+        iss: 'rosterly', 
+    };
+} 
+
 module.exports = {
-    createUser
+    createUser,
+    createToken
 }
