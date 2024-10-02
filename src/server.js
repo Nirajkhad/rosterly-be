@@ -4,6 +4,11 @@ const bodyParser = require("body-parser");
 const { verifyUser } = require("./middlewares/auth-middleware");
 const responseFormatter = require("./utils/responser");
 const { sequelize } = require("./models");
+const cors = require('cors');
+
+
+app.use(cors());
+
 
 const app = express();
 const PORT = process.env.APP_PORT || 8000;
