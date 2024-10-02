@@ -9,15 +9,10 @@ services:
     restart: always
     ports:
       - "8000:8000"
-    environment:
-      - DB_HOST=postgres
-      - DB_USER=postgres
-      - DB_PASSWORD=secret
-      - DB_NAME=express_db
     depends_on:
       - postgres
     volumes:
-      - .:/usr/src/app
+      - .:/app
     networks:
       - app-network
 
@@ -47,11 +42,14 @@ services:
       - "8080:80"
     depends_on:
       - postgres
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
     networks:
       - app-network
 
 volumes:
   postgres-data:
+  pgadmin-data:
 
 networks:
   app-network:

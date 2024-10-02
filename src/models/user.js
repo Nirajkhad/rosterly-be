@@ -1,10 +1,25 @@
-// models/user.js
+'use strict';
+const { Model, DataTypes } = require('sequelize');
 
-module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
-    uuid: {
-      type: DataTypes.STRING,
+module.exports = (sequelize) => {
+  class User extends Model {
+    static associate(models) {
+      // define association here
+    }
+  }
+
+  User.init({
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
       allowNull: false,
+    },
+    uuid: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      allowNull: false,
+      primaryKey: true,
     },
     full_name: {
       type: DataTypes.STRING,
@@ -27,24 +42,19 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    created_at: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
-    updated_at: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
-    },
     deleted_at: {
       type: DataTypes.DATE,
       allowNull: true,
     },
   }, {
+    sequelize,
+    modelName: 'User',
     tableName: 'users',
     timestamps: true,
-    paranoid: true, // Enable soft deletes
+    createdAt: 'created_at', // Ensure this is mapped correctly
+    updatedAt: 'updated_at', // Ensure this is mapped correctly
+    deletedAt: 'deleted_at', // Ensure this is mapped correctly
+    paranoid: true,
   });
 
   return User;
