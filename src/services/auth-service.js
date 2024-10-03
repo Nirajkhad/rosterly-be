@@ -13,7 +13,7 @@ const signupService = async (req, res) => {
       res,
       false,
       error.details.map((err) => err.message).join(", "),
-      "User already exists",
+      "Invalid request",
       422    );
   }
   const existingUser = await findOne({ email: req.body.email });
@@ -21,7 +21,7 @@ const signupService = async (req, res) => {
     return responseFormatter(
       res,
       false,
-      "User already exists",
+      null,
       "User already exists",
       422,
     );
@@ -32,7 +32,7 @@ const signupService = async (req, res) => {
     res,
     true,
     generateToken(user),
-    "User is authenticated successfully",
+    "Sign up successful! Now, let's get your business details filled in.",
     200
   );
 };
