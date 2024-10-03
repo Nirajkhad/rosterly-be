@@ -22,7 +22,7 @@ const signupService = async (req, res) => {
       res,
       false,
       null,
-      "User already exists",
+      "This email address is already in use. Please try a different one.",
       422,
     );
   }
