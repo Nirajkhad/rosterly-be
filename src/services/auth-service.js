@@ -80,7 +80,7 @@ const signinService = async (req, res) => {
   return responseFormatter(
     res,
     true,
-    generateToken(user),
+    generateToken(user,req.body.remember_me),
     "User a authenticated successfully",
     200
   );

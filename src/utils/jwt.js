@@ -3,9 +3,9 @@ const { createToken } = require('../dtos/user');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret_key'; // Replace with your secret key
 
-const generateToken = (user) => {
+const generateToken = (user, remember_me = false) => {
     let response = createToken(user);
-    response.access_token  = jwt.sign(createToken(user), JWT_SECRET);
+    response.access_token  = jwt.sign(createToken(user), process.env.JWT_SECRET);
     return response;
 }
 

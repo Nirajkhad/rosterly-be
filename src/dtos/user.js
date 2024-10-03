@@ -8,12 +8,12 @@ const createUser = ( body, password_hash) => {
     }
 }
 
-const createToken = (user) =>{
+const createToken = (user, remember_me) =>{
     return  {
         sub: user.id, 
         user_type: user.user_type,
         iat: Math.floor(Date.now() / 1000), 
-        exp: Math.floor(Date.now() / 1000) + 2592000, 
+        exp: Math.floor(Date.now() / 1000) + (remember_me ? process.env.JWT_EXPIRATION_TIME : 28800), 
         iss: 'rosterly', 
     };
 } 
