@@ -12,21 +12,18 @@ const signupService = async (req, res) => {
     return responseFormatter(
       res,
       false,
-      null,
-      "Unprocessable Content",
-      422,
-      error.details.map((err) => err.message)
-    );
+      error.details.map((err) => err.message).join(", "),
+      "User already exists",
+      422    );
   }
   const existingUser = await findOne({ email: req.body.email });
   if (existingUser) {
     return responseFormatter(
       res,
       false,
-      null,
-      "Unprocessable Content",
+      "User already exists",
+      "User already exists",
       422,
-      ["User already exists"]
     );
   }
   const passwordHashed = await hashPassword(req.body.password);
@@ -46,10 +43,9 @@ const signinService = async (req, res) => {
     return responseFormatter(
       res,
       false,
-      null,
-      "Unprocessable Content",
+      error.details.map((err) => err.message).join(", "),
+      "Invalid request",
       422,
-      error.details.map((err) => err.message)
     );
   }
   const user = await findOne({ email: req.body.email });
@@ -58,9 +54,8 @@ const signinService = async (req, res) => {
       res,
       false,
       null,
-      "Unauthorized",
+      "Invalid username or password",
       401,
-      ["Invalid username or password"]
     );
   }
   const passwordMatch = await verifyPassword(
@@ -72,9 +67,8 @@ const signinService = async (req, res) => {
       res,
       false,
       null,
-      "Unauthorized",
-      401,
-      ["Invalid username or password"]
+      "Invalid username or password",
+      401    
     );
   }
   return responseFormatter(
