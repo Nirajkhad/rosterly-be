@@ -38,12 +38,13 @@ const signupService = async (req, res) => {
 };
 
 const signinService = async (req, res) => {
-  const { error } = signinValidator.validate(req.body);
+  const error  =  signinValidator.safeParse(req.body);
+  console.log("ERROR",error);
   if (error) {
     return responseFormatter(
       res,
       false,
-      error.details.map((err) => err.message).join(", "),
+      error.errors.map((err) => err.message).join(", "),
       "Invalid request",
       422,
     );

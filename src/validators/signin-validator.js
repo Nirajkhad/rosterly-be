@@ -1,17 +1,13 @@
-const Joi = require("joi");
+const { z } = require("zod");
 
-const signinValidator = Joi.object({
-  email: Joi.required().messages({
-    "any.required": "email is a required field",
-  }),
+const signinValidator = z.object({
+  email: z.string().nonempty({ message: "email is a required field" }),
 
-  password: Joi.required().messages({
-    "any.required": "password is a required field",
-  }),
+  password: z.string().nonempty({ message: "password is a required field" }),
 
-  remember_me: Joi.boolean().required().messages({
-    "any.required": "remember_me is a required field",
-    "boolean.base": "remember_me should be a boolean value",
+  remember_me: z.boolean({
+    required_error: "remember_me is a required field",
+    invalid_type_error: "remember_me should be a boolean value",
   }),
 });
 

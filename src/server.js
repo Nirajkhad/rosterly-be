@@ -1,27 +1,28 @@
 const express = require("express");
-const authRoute = require("./routers/auth-routerjs");
+const authRoute = require("./routers/auth-router.js");
 const bodyParser = require("body-parser");
 const { verifyUser } = require("./middlewares/auth-middleware");
 const responseFormatter = require("./utils/responser");
 const { sequelize } = require("./models");
-const cors = require('cors');
-
-
-
+const cors = require("cors");
 
 const app = express();
 const PORT = process.env.APP_PORT || 8000;
-app.use(cors({
-  origin:"http://localhost:3000",
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+console.log("HERE");
 
 //Public routes
 app.get("/", async (req, res) => {
   try {
+    console.log("HERE");
     // Check if the database connection is alive
     await sequelize.authenticate();
 
