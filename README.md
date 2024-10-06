@@ -12,7 +12,7 @@ Before you begin, make sure you have the following software installed on your ma
 
 Follow the steps below to set up and run the project.
 
-### 1. Project setup
+### Project setup
 
 Run the following commands to run the backend in your system
 
@@ -21,6 +21,12 @@ git clone https://github.com/your-username/your-repository.git
 cd  /rosterly-be
 docker-compose up --build -d
 
+```
 
+### For local development
+```bash
+git clone https://github.com/your-username/your-repository.git
+cd  /rosterly-be
+docker-compose -f local.docker-compose.yml up --build -d
 
 
