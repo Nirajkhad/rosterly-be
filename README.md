@@ -1,8 +1,4 @@
-# Project Name
-
-## Description
-
-A brief description of the project, what it does, and its key features.
+# Rosterly backend
 
 ## Prerequisites
 
@@ -16,9 +12,9 @@ Before you begin, make sure you have the following software installed on your ma
 
 Follow the steps below to set up and run the project.
 
-### 1. Clone the Repository
+### 1. Project setup
 
-Run the following commands to clone the repository and navigate into the project folder:
+Run the following commands to run the backend in your system
 
 ```bash
 git clone https://github.com/your-username/your-repository.git
