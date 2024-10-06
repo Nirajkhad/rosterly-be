@@ -20,8 +20,7 @@ Run the following commands to run the backend in your system
 git clone https://github.com/your-username/your-repository.git
 cd  /rosterly-be
 docker-compose up --build -d
-npm install
-docker exec -it app sh
-npx sequelize-cli db:migrate
+
+
 
 
