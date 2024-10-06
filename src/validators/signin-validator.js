@@ -1,17 +1,20 @@
-const Joi = require("joi");
+const { z } = require("zod");
 
-const signinValidator = Joi.object({
-  email: Joi.required().messages({
-    "any.required": "email is a required field",
-  }),
+const signinValidator = z.object({
+  email: z.string({
+    required_error: "email is a required field",
+    invalid_type_error: "email should be a string value",
+  }).email("Invalid email format")
+  ,
 
-  password: Joi.required().messages({
-    "any.required": "password is a required field",
-  }),
+  password: z.string({
+    required_error: "password is a required field",
+    invalid_type_error: "password should be a string value",
+  }).min(6, "password should be at least 6 characters long"),
 
-  remember_me: Joi.boolean().required().messages({
-    "any.required": "remember_me is a required field",
-    "boolean.base": "remember_me should be a boolean value",
+  remember_me: z.boolean({
+    required_error: "remember_me is a required field",
+    invalid_type_error: "remember_me should be a boolean value",
   }),
 });
 

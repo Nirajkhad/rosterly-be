@@ -7,14 +7,17 @@ const signinValidator = require("../validators/signin-validator");
 const signupValidator = require("../validators/signup-validators");
 
 const signupService = async (req, res) => {
-  const { error } = signupValidator.validate(req.body);
-  if (error) {
+  const result  =  signupValidator.safeParse(req.body);
+  // console.log("ERROR ",error.error);
+  
+  if (!result.success) {
     return responseFormatter(
       res,
       false,
-      error.details.map((err) => err.message).join(", "),
+      result.error.errors.map((err) => err.message).join(", "),
       "Invalid request",
-      422    );
+      422
+    );
   }
   const existingUser = await findOne({ email: req.body.email });
   if (existingUser) {
@@ -38,14 +41,16 @@ const signupService = async (req, res) => {
 };
 
 const signinService = async (req, res) => {
-  const { error } = signinValidator.validate(req.body);
-  if (error) {
+  const result  =  signinValidator.safeParse(req.body);
+  // console.log("ERROR ",error.error);
+  
+  if (!result.success) {
     return responseFormatter(
       res,
       false,
-      error.details.map((err) => err.message).join(", "),
+      result.error.errors.map((err) => err.message).join(", "),
       "Invalid request",
-      422,
+      422
     );
   }
   const user = await findOne({ email: req.body.email });
@@ -75,7 +80,7 @@ const signinService = async (req, res) => {
     res,
     true,
     generateToken(user,req.body.remember_me),
-    "User a authenticated successfully",
+    "Welcome back! You’re signed in!",
     200
   );
 };
