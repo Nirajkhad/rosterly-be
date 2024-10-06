@@ -14,13 +14,13 @@ RUN npm install
 COPY . .
 
 # Copy the entrypoint script
-COPY entrypoint-local.sh /usr/local/bin/
+COPY entrypoint.sh /usr/local/bin/
 
 # Make the entrypoint script executable
-RUN chmod +x /usr/local/bin/entrypoint-local.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # Expose the application port
 EXPOSE 8000
 
 # Set entrypoint to the custom script
-ENTRYPOINT ["entrypoint-local.sh"]
+ENTRYPOINT ["entrypoint.sh"]

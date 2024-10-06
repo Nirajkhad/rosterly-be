@@ -4,4 +4,4 @@
 npx sequelize-cli db:migrate
 
 # Start the application
-npm start
+npm run dev:start
