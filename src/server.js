@@ -10,7 +10,7 @@ const app = express();
 const PORT = process.env.APP_PORT || 8000;
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.origin,
     credentials: true,
   })
 );
@@ -25,7 +25,7 @@ app.use("/auth", authRoute);
 
 //Protected routes
 app.get("/test/auth", verifyUser, (req, res) => {
-  console.log(req.user.id);
+  console.log(req.user);
   res.send("Hello World from Express.js!");
 });
 
