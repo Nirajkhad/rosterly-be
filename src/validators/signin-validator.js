@@ -1,9 +1,16 @@
 const { z } = require("zod");
 
 const signinValidator = z.object({
-  email: z.string().nonempty({ message: "email is a required field" }),
+  email: z.string({
+    required_error: "email is a required field",
+    invalid_type_error: "email should be a string value",
+  }).email("Invalid email format")
+  ,
 
-  password: z.string().nonempty({ message: "password is a required field" }),
+  password: z.string({
+    required_error: "password is a required field",
+    invalid_type_error: "password should be a string value",
+  }).min(6, "password should be at least 6 characters long"),
 
   remember_me: z.boolean({
     required_error: "remember_me is a required field",
