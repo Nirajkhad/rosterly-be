@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken");
 const responseFormatter = require("../utils/responser");
+const { findOne } = require("../repositories/user-repository");
+const { user } = require("pg/lib/defaults");
 
 const verifyUser = async (req, res, next) => {
     try {
@@ -30,7 +32,7 @@ const verifyUser = async (req, res, next) => {
             );
         }
 
-        jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
             if (err) {
                 return responseFormatter(
                     res,
@@ -41,7 +43,10 @@ const verifyUser = async (req, res, next) => {
                     ["Invalid Token"]
                 );
             }
-            req.user = decoded;
+            const user = await findOne({
+                id: decoded.sub
+            })
+            req.user = user;
             next();
         });
     } catch (err) {

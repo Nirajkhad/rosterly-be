@@ -25,6 +25,7 @@ app.use("/auth", authRoute);
 
 //Protected routes
 app.get("/test/auth", verifyUser, (req, res) => {
+  console.log(req.user.id);
   res.send("Hello World from Express.js!");
 });
 
