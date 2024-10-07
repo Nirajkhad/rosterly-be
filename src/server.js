@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const { verifyUser } = require("./middlewares/auth-middleware");
 const cors = require("cors");
 const notFoundMiddleware = require("./middlewares/not-found-middleware.js");
+const businessRouter = require('./routers/business');
 
 const app = express();
 const PORT = process.env.APP_PORT || 8000;
@@ -22,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/", healthCheckRoute);
 
 app.use("/auth", authRoute);
+app.use(businessRouter);
 
 //Protected routes
 app.get("/test/auth", verifyUser, (req, res) => {
